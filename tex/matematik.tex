@@ -1,0 +1,172 @@
+Matematisk typsättning är något WYSIWYG-editorer historiskt sett varit, och i mångt och mycket är än idag, dåliga på. \LaTeX{} gör det hela relativt enkelt, och inte minst konsekvent, och är måhända dess största styrka. Även utan vidare bibliotek har \LaTeX{} det mesta vi behöver för enklare matematiska formler, och med biblioteket \texttt{mathtools} får vi allt vi sannolikt behöver och lite till. \texttt{mathtools} inkluderar även biblioteket \texttt{amsmath} och således behöver inte båda inkluderas.
+
+Då det här dokumentet inte avser att vara en komplett guide till \LaTeX{} kommer dock inte närmelsevis alla funktioner att behandlas. För detta hänvisas till referenslitteraturen.
+
+Det första vi behöver veta för detta är att \LaTeX{} på förhand behöver veta att det som komma skall är matematiska element. Det beror på att \LaTeX{} hanterar matematisk notation annorlunda än vanlig text. För detta har vi två olika miljöer, beroende på hur de visas:
+\itb
+  \item \emph{text} - textformler visas i inuti texten,  $3x+2y=7z$ är ett exempel på detta.
+  \item \emph{displayed} - formlerna är åtskilda från huvudtexten.
+\ite
+Till skillnad från de flesta miljöer finns ett par kortkommandon för att deklarera dessa \emph{``math modes''}:
+
+\begin{tabular}{|l|l|l|p{9.5cm}|}
+  \hline
+  Typ & \emph{text} & \emph{displayed} & \emph{displayed} med automatisk numrering\\\hline
+  Miljö & \texttt{math} & \texttt{displaymath} & \texttt{equation} \\\hline
+  Kräver & & amsmath & amsmath\\\hline
+  \LaTeX{}-syntax & \verb+\(...\)+ & \verb+\[...\]+ & \\\hline
+  \TeX{}-syntax & \$\ldots\$ & \$\$\ldots\$\$ &\\\hline
+\end{tabular}
+
+\TeX-syntaxen bör i allmänhet undvikas, men fungerar för det mesta. AMS-LaTeX-makron kan, i synnerhet i kombination med \$\$\ldots\$\$ ställa till det och ge felmeddelanden som är svåra, om inte omöjliga, att tolka.
+
+Math mode skiljer sig från ``vanligt'' läge på flera punkter:
+\itb
+\item Vita tecken (inklusive radbrytningar) ignoreras och härleds istället ur det matematiska uttrycket. De kan dock tvingas in med specifika kommandon.
+\item Tomma rader är inte tillåtna. Endast ett stycke per formel.
+\item Varje bokstav tolkas som namnet på en variabel och typsätts enligt detta. Detta kan överskuggas genom \verb+\mathrm{}+.
+\ite
+
+\section{Insättning av ``displayed'' i textblock}
+Vissa kommandon, såsom \tb lim eller \tb sum, är exklusiva för math mode. Men inte nog med det, de kan även visas på ett oönskat vis. Det kan vara av intresse att använda \verb+\displaystyle+ för att få dessa att visas korrekt i löpande text. Exempelvis ger \verb+$\sum$+ ett $\sum$ medan \verb+$\displaystyle \sum$+ ger ett $\displaystyle \sum$ likt det i ekvationer. Detta kräver dock AMSMATH.
+
+\section{Symboler}
+Att lära sig vad matematiska symboler betyder är inte alltid så lätt, och att minnas hur man producerar dem i \LaTeX{} är nästan lika svårt. Det finns dock gott om listor online för just detta och vissa \LaTeX-editorer har även lättöverskådliga grafiska gränssnitt där dessa kan infogas med ett enkelt musklick, så någon lista på dessa kommer inte att omfattas av detta dokument. Det finns dock de flesta tänkbara operatorer, pilar och så vidare man kan behöva, exempelvis:
+
+\verb+\forall x \in X, \quad \exists y \leq \epsilon+
+
+$\forall x \in X, \quad \exists y \leq \epsilon$
+
+\section{Grekiska bokstäver}
+Grekiska bokstäver används ofta inom exempelvis matematiken och fysiken, och de är väldigt enkla att producera i math mode: ett \tb följt av bokstavens (engelska) namn. För gemener används inledande gemen, för versaler inledande versal. De som ser identiska ut med latinska bokstäver (ex. stort Alpha, Beta etc.) finns inte definierade i \LaTeX{} utan skrivs ut med dess latinska motsvarighet. Lilla epsilon, theta, phi, pi, rho och sigma, finns i två versioner. De alternativa \emph{var}ianterna skrivs då med ``var'' efter namnet.
+
+\verb+\alpha, \beta, \gamma, \Gamma, \pi, \Pi, \phi, \varphi, \Phi+
+
+$\alpha, \beta, \gamma, \Gamma, \pi, \Pi, \phi, \varphi, \Phi$
+
+\section{Operatorer}
+Operatorer skrivna som ord (ex. trigonometriska funktioner (sin, cos, tan) och logaritmer och exponentialfunktioner (log, exp)) har oftast fördefinierade kommandon:
+
+\verb+\cos (2\theta) = \cos^2 \theta - \sin^2 \theta+
+$\cos (2\theta) = \cos^2 \theta - \sin^2 \theta$
+
+\section{Exponenter och index}\label{sec:mathexp}
+Exponenter och index i math mode är lite bekvämare än i normal text\footnote{Det kommer dock att typsättas enligt math mode, så använd upphöjt och nedsänkt läge enligt avsnitt \ref{sec:textexp}, sid \pageref{sec:textexp} för normal text.}. För exponenter använder vi \verb+^{}+ och \verb+_{}+ och placerar det som ska upphöjas eller nedsänkas inom måsvingarna. Om endast ett tecken ska justeras kan måsvingarna utelämnas.
+
+\section{Bråk och binomial}
+Bråk skapas genom \verb+\frac{täljare}{nämnare}+. Binomial skrivs på samma sätt med \verb+\binom{}{}+:
+
+\verb+\frac{n!}{k!(n-k)!} = \binom{n}{k}+
+
+$\frac{n!}{k!(n-k)!} = \binom{n}{k}$
+
+Bråk kan även nästlas i andra bråk:
+
+\verb?\frac{ \frac{1}{x}+\frac{1}{y} } {y-z}?
+
+$\frac{\frac{1}{x}+\frac{1}{y}}{y-z}$
+
+Snedställda bråk ($\sfrac{1}{2}$) kan skrivas med \verb+\sfrac+ (\verb+\usepackage{xfrac}+)
+
+Kedjebråk bör skrivas med \verb+\cfrac+:
+
+\begin{verbatim}
+  x = a_0 + \cfrac{1}{a_1
+    + \cfrac{1}{a_2
+      + \cfrac{1}{a_3 + \cfrac{1}{a_4} } } }
+\end{verbatim}
+
+$  x = a_0 + \cfrac{1}{a_1
+    + \cfrac{1}{a_2
+      + \cfrac{1}{a_3 + \cfrac{1}{a_4} } } }$
+
+\section{Rotuttryck}
+Rotuttryck skrivs med \verb+\sqrt[]{}+:
+
+\verb+\sqrt[a]{b}+ {\Large\quad$\sqrt[a]{b}$}
+
+\section{Summor och integraler}
+Kommandona \verb+\sum+ och \verb+\int+ sätter in summatecken och integraltecken med gränser specifierade med (\textasciicircum) och (\_).
+
+\verb+\sum_{i=1}^{10} t_i+
+
+$\sum_{i=1}^{10} t_i$
+\\\\
+I \emph{text}-mode \verb+\[...\]+ kommer \LaTeX{} att typsätta gränserna enligt ovan för att spara radhöjt. Om vi i stället använder \emph{displayed} kommer den standardvarianten att väljas:
+
+$\displaystyle\sum_{i=1}^{10} t_i$
+
+Vill vi tvinga fram detta i \emph{text} utan att använda \verb+\displaystyle+ (om vi vill ha kvar det mindre summatecknet) kan vi göra detta med \verb+\underset{}{}+ och \verb+\overset{}{}+:
+
+\verb+\underset{i=1}{\overset{10}{\sum}} t_i+
+
+$\underset{i=1}{\overset{10}{\sum}} t_i$
+
+Sistnämnda variant fungerar även för \tb int, men det finns en enklare lösning -- \verb+\int\limits+:
+
+\verb+\int\limits_a^b+
+
+$\displaystyle \int\limits_a^b$
+
+\section{Automatisk storlek}\label{sec:lrm}
+Ofta skiljer sig matematiska element i storlek varvid exempelvis parenteser bör justeras för att passa uttrycket. Det kan göras med kommandona \verb+\left, \right, \middle+. Om ett avgränsande tecken (delimiter) endast används på en sida av ett uttryck används en osynlig delimiter (.) på andra sidan. Några exempel:
+
+\verb+\left(\frac{x^2}{y^3}\right)+
+
+$$\left(\frac{x^2}{y^3}\right)$$
+
+\verb+P\left(A=2\middle|\frac{A^2}{B}>4\right)+
+
+$$P\left(A=2\middle|\frac{A^2}{B}>4\right)$$
+
+\verb+\left\{\frac{x^2}{y^3}\right\}+
+
+$$\left\{\frac{x^2}{y^3}\right\}$$
+
+\verb+\left.\frac{x^3}{3}\right_0^1+
+
+$$\left.\frac{x^3}{3}\right|_0^1$$
+
+\section{Matriser}
+Matriser kan skapas genom miljön \verb+matrix+\footnote{kräver amsmath}. I likhet med exempelvis \verb+tabular+ anger vi elementen separerade radvis med \tb\tb{} och kolumnerna separerade med ampersand (\&). Kolumnjustering (lcr) kan anges som parameter om vi använder \verb+matrix*+\footnote{kräver mathtools} (standard = c):
+
+\bve
+\begin{matrix*}[r]
+  a & b & -c \\
+  d & -e & f \\
+  -g & h & i
+\end{matrix*}
+\end{verbatim}
+
+$\begin{matrix*}[r]
+  a & b & -c \\
+  d & -e & f \\
+  -g & h & i
+\end{matrix*}$
+
+Matriser har oftast någon form av delimiter. Vi kan använda \verb+\left+ och \verb+right+ för detta, men det finns även fördefinierade miljöer som automatiskt inkluderar dessa. Samtliga kommer i mathtools med *-motsvarigheter: pmatrix (), bmatrix \lbrack{} \rbrack, Bmatrix \{\}, vmatrix \verb+|+ och Vmatrix \verb+||+.
+
+För matriser av godtycklig storlek kan \verb+\cdots, \vdots, \ddots+ användas.
+
+\bve
+A_{m,n} =
+\begin{pmatrix}
+  a_{1,1} & a_{1,2} & \cdots & a_{1,n} \\
+  a_{2,1} & a_{2,2} & \cdots & a_{2,n} \\
+  \vdots & \vdots & \ddots & \vdots \\
+  a_{m,1} & a_{m,2} & \cdots & a_{m,n}
+\end{pmatrix}
+\end{verbatim}
+
+$A_{m,n} =
+\begin{pmatrix}
+  a_{1,1} & a_{1,2} & \cdots & a_{1,n} \\
+  a_{2,1} & a_{2,2} & \cdots & a_{2,n} \\
+  \vdots & \vdots & \ddots & \vdots \\
+  a_{m,1} & a_{m,2} & \cdots & a_{m,n}
+\end{pmatrix}$
+
+Vid exempelvis bråktal lämnar inte alltid matrix-klassen tillräckligt med utrymme mellan raderna. Detta kan hjälpas med en extra parameter efter \tb\tb: \verb+\\[0.3mm]+
+
+\section{Övrigt}
+Som säkert märkts är matematisk typsättning omständligt, och mer finjustering än vad som tagits upp här står att finna, men det är inte särskilt svårt. Det här dokumentet avser, återigen, inte att vara heltäckande på något sätt, och framför allt inte gällande just detta avsnitt. Avsikten är att snabbt komma igång, belysa potentialen och att ge ett hum om vad som kan åstadkommas med hjälp av \LaTeX.

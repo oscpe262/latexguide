@@ -1,0 +1,86 @@
+Att skriva strukturerat är något varje student någon gång behöver lära sig. Att använda \LaTeX\ är på intet sätt en magisk lösning på det behovet, men det är ett verktyg som dels underlättar ett strukturerat skrivande och dels kräver ett strukturerat skrivande. Anledningen till detta är den bakomliggande strukturen i de dokumentmallar som \LaTeX\ skeppas med. I det här avsnittet ska vi ta en titt på dessa strukturer och hur vi använder dem.
+\section{Globala strukturer}
+När \LaTeX\ processar en källkodsfil förväntar den sig en särskild struktur. De mest grundläggande har vi redan sett i vårt hello-world-exempel:
+
+\texttt{
+  \tb{}documentclass\{article\}\\\\
+  \tb{}begin\{document\}\\
+  \indent Hello world!\\
+  \tb{}end\{document\}
+}
+
+Det vi finner innan \tb{}begin\{document\} kallar vi preamble. Den innehåller normalt kommandon som påverkar resten av dokumentet. Därefter finner vi själva dokumentet vilket börjar med markören \tb{}begin\{document\} och slutar med \tb{}end\{document\}. Anledningen till att \LaTeX\ vill ha dessa markörer är för att låta användaren ange extra konfigurationsmöjligheter innan texten börjar, och för att ges möjligheten till att göra extra saker efteråt, exempelvis att skapa ett index.
+
+\subsection{Preamble}
+Först måste vi veta vilken typ av dokument vi vill skapa. Det gör vi genom \tb{}documentclass\{dokumenttyp\}. Kommandot kan även ges parametrar inom klammerparenteser. De vanligaste ur en students synvinkel torde vara ``article'' och ``report''. Mer exakt vad som skiljer dessa åt och vilka övriga som finns att tillgå lämnas dock därhän här.
+
+När det kommer till parametrarna finns det ett gäng, men de vanligast använda i akademiska sammanhang torde vara 10/11/12pt och a4paper. I många europeiska distributioner är a4paper standard, men det skadar inte att slänga dit ``i onödan''. 10/11/12pt avgör standardstorleken för brödtexten. Om inget annat anges så används 10pt.
+
+\tb{}documentclass\lbrack 10pt,a4paper\rbrack\{article\}
+
+\subsection{Paket}
+\LaTeX\ är bra på en hel del, men riktigt flexibelt och kraftfullt blir det först med extra bibliotek - paket (``packages''). Vissa inkluderas med distributionerna, andra kan kräva separat installation. När de väl är installerade aktiveras de med kommandot \texttt{\tb{}usepackage\lbrack parameter1,paramter2\rbrack\{paketnamn\}}. Om flera paket utan parametrar ska laddas kan dessa anges kommaseparerat i en och samma kommandorad. Ska de ges parametrar krävs dock separata kommandon. Vi laddar här exempelvis vår UTF-8-avkodare och graphicx:
+
+\texttt{
+  \tb{}documentclass\{article\}\\
+  \tb{}usepackage\lbrack utf8\rbrack\{inputenc\}\\
+  \tb{}usepackage\{graphicx\}\\\\
+  \tb{}begin\{document\}\\
+  \indent Hello world!\\
+  \tb{}end\{document\}
+}
+\section{Document-blocket} %5.3
+Överst i de flesta dokumentblock återfinner vi information om dokumentet, såsom titel, författare etc. All denna data refereras ofta till som ``top matter'' i diverse dokumentation. Med hjälp av kommandot \tb{}maketitle kan vi skapa en stilren framsida på våra dokument. Dock behöver vi ange titel och författare innan vi kan använda det. Det gör vi genom \tb{}title och \tb{}author. Flera författare separeras med \tb{}and. Vi kan även ange datum med \tb{}date och om vi dynamiskt vill ha kompileringsdatumet kan vi ange det med \tb{}today.
+
+\begin{verbatim}
+\title{En LiThen guide till \LaTeX{}}
+\author{Oscar Petersson \and Lena Lår}
+\date{\today}
+\maketitle
+\end{verbatim}
+
+
+Det här ger dock bara en tämligen enkel förstasida, och större uppsatser och avhandlingar kan ställa högre krav än så. Det finns dock god dokumentation kring hur detta går till annorstädes, och många institutioner tillhandahåller även \TeX-mallar för just detta.
+
+\subsection{Abstract}
+För typerna \emph{article \em och \em report} finns en environment\footnote{se \ref{env} sid. \pageref{env}} vid namn \emph{abstract} för just abstracts. Om det ska döpas om till något annat kan \verb?\renewcommand{\abstractname}{Nytt namn}? användas.
+
+\subsection{Rubriker}\label{sec:sections}
+Rubriker och underrubriker är något få WYSIWYG-editorer hanterar riktigt väl. \LaTeX{} gör dock den delen av livet betydligt lättare, och på köpet får du möjligheten att referera till avsnitt dynamiskt (såsom fotnoten i abstract på denna sida) och givetvis en dynamiskt uppdaterad innehållsförteckning. Inte heller\tb{}begin och\tb{}end behöver användas för styckeindelningar gjorda med dessa så kallade \emph{sections}.
+
+\LaTeX{} har totalt sju nivåer av sections (se tabellen nedan). Varje section i denna tabell är en undernivå till den ovanför. Om rubriken är väldigt lång kan en alternativ rubrik (för innehållsförteckningen) anges som parameter inom klammerparenteser.
+
+{\center
+\begin{tabular}{|l|c|p{9cm}|}
+  \hline
+  Kommando & Nivå & Kommentar\\
+  \hline\tb{}part\{``part''\}                   & -1 & Ej i \emph{letter}\\\hline
+  \tb{}chapter\{``chapter''\}                   & 0 & Endast i \emph{book} och \emph{report}\\\hline
+  \tb{}section\{``section''\}                   & 1 & Ej i \emph{letter}\\\hline
+  \tb{}subsection\{``subsection''\}             & 2 & Ej i \emph{letter}\\\hline
+  \tb{}subsubsection\{``subsubsection''\}       & 3 & Ej i \emph{letter}\\\hline
+  \tb{}paragraph\{``paragraph''\}               & 4 & Ej i \emph{letter}\\\hline
+  \tb{}subparagraph\{``subparagraph''\}         & 5 & Ej i \emph{letter}\\\hline
+\end{tabular}}
+
+\subsubsection{Rubriknumrering}
+Rubriknumrering sköts automatiskt av \LaTeX. Om inget annat anges kommer nivåer upp till nivå 2 (subsection) att numreras. Hur djupt i nivåerna numrering ska ske regleras med \verb?\setcounter{secnumdepth}{1}?, där siffran motsvarar nivån i tabellen ovan. På motsvarande justeras antalet nivåer som ska listas i innehållsförteckningen med \verb?\setcounter{tocdepth}{3}? (standard = 3).
+
+\subsubsection{Appendix}
+Appendixsektioner markeras genom \verb?\appendix? och \LaTeX{} numrerar all efterföljande struktur som A, A1, B, C, etc. Dock krävs fortfarande normala rubriknivådefinitioner.
+
+\begin{verbatim}
+\chapter{Kapitel 1}
+  ...
+\chapter{Kaptiel 2}
+  ...
+\appendix
+\chapter{Första appendix}
+  ...
+\section{Undernivå A1}
+  ...
+\chapter{Andra appendix}
+  ...
+\end{verbatim}
+
+

@@ -1,0 +1,72 @@
+\section{Introduktion}
+\subsection{Vad är det här för dokument?}
+Risken är överhängande att du blivit påtvingad detta dokument av en studiekamrat eller kollega av någon anledning. Troligtvis på grund av att denne insett hur effektivt \LaTeX\  är för att skapa dokument av exempelvis vetenskaplig karaktär. Alternativt har du hittat det själv och eventuellt undrar du varför du ska fortsätta läsa. Oavsett orsaken så bör vi reda upp några saker:
+
+Den här guiden avser inte att reducera din eftertanke gällande akribi. Inte heller kommer implementation av \LaTeX\ för någon enstaka kortare rapport att bespara dig någon nämnvärd (om någon alls) tid. Men när du väl vant dig och när dokumentet ökar i omfattning kommer du att tacka vem det nu kan vara för att du stötte på det. Förhoppningsvis har du getts det här dokumentet redan i början av din högskoleutbildning, eller måhända tidigare än så, och i så fall finns all anledning att fortsätta läsa.
+
+Upplägget av dokumentet och flera exempel har inspirerats och ibland även kopierats från wikibooks.org:s ``LaTeX''\footnote{\url{http://upload.wikimedia.org/wikipedia/commons/2/2d/LaTeX.pdf}}. Dokumentet är på intet sätt avsett att på något sätt förringa eller konkurrera med detta verk. Dokumentet avser snarast att inspirera till användning utav \LaTeX{} i allmänhet och användning av ``LaTeX'' som referens- och fördjupningslitteratur.
+
+Den här guiden är inte heller heltäckande. Om det är något du vill göra men som inte täcks här eller i boken oven, googla eller vänd dig till något lämpligt forum på webben. Det den här guiden syftar till är att snabbt få upp nya användare till en nivå där de kan bidraga till exempelvis en kollaborativ rapportskrivning, eller till att kunna skriva enklare rapporter på egen hand.
+
+Om du springer på något som du känner borde ha tagits upp och som faller inom dokumentets syfte, kontakta mig gärna på guidens gitrepo \href{http://github.com/oscpe262/latexguide}{\url{http://github.com/oscpe262/latexguide}} och berätta.
+
+\subsubsection{Hur ska jag läsa det här dokumentet?}
+Det står läsaren givetvis fritt att läsa det precis som denne själv önskar. Ett varningens finger bör dock lyftas till den som ämnar hoppa runt i texten då vissa avsnitt bygger på tidigare avsnitt, således rekommenderas att åtminstone läsa kapitel \ref{sec:intro}, \ref{sec:grunder} och \ref{sec:dokstruk} i sin helhet, framför allt för den som är helt obekant med \LaTeX.
+
+Den som skriver kollaborativt med någon som redan hanterar \LaTeX{} och snabbt behöver komma igång bör därefter först och främst läsa kapitel \ref{sec:text} och \ref{sec:referenser} för att därefter komplettera med det som behövs för stunden.
+
+\subsection{Vad är \TeX\ och \LaTeX?}
+\TeX\ \lbrack\textipa{'tEX\ alt. 'tEk}\rbrack\ är ett så kallat ``markup language'' skapat av Donald Knuth för att typsätta dokument konsekvent med avseende på läsbarhet. Det är även till viss del ett programmeringsspråk då exempelvis else-if-konstruktioner stöds och beräkningar kan genomföras under kompilering, men först och främst är syftet och användbarheten fokuserad på just typsättning.
+
+\TeX\ har en hög inlärningskurva och är tämligen komplicerat, men lyckligtvis finns en samling förberedda bibliotek som hjälper användaren att automatisera repetativa uppgifter, reducera fel och spara tid. Det mest populära av dessa bibliotek är \LaTeX.
+
+\LaTeX\ \lbrack\textipa{'leItEX\ alt. 'lA:tEX}\rbrack är ett makrobibliotek baserat på \TeX\ skapat av Leslie Lamport. Fokus ligger på matematiska formler, men med tiden har det kommit att breddas och med inkluderingar av andra bibliotek är det lämpat för i stort sett vilken typ av dokument som helst.
+
+Men bortsett från denna historik då? Hur fungerar det? \LaTeX\ bygger på principen WYSIWYM (What you see is what you mean) till skillnad mot vad de flesta idag är vana vid - WYSIWYG (What you see is what you get). Medan den senare, i form av exempelvis Microsoft Word, låter användaren se formatteringen av texten i samma stund som den skrivs och där bakomliggande formatterande kod är dold, så kräver \LaTeX\ att användaren själv skriver in sin formattering och sedan kompilerar koden för att få ut resultatet, vanligtvis i PDF-format. Omständligt kan tyckas, men det innebär även att användaren ges kontrollen över exakt hur saker och ting ska formatteras och när. Det innebär även att korta dokument kräver mer arbete att bygga från början i \LaTeX, men att komplexa dokument kan göras lättöverskådliga och enhetliga med marginellt extraarbete. Dessutom kan dessa mallifieras och återanvändas med lätthet.
+
+\subsection{Vad tjänar jag på att använda \LaTeX?}
+Det är givetvis en fråga som varierar från person till person, och i vissa fall finns måhända inget att tjäna alls. Det här dokumentets ursprungliga målgrupp är dock studenter vid universitet och högskolor, främst inom tekniska utbildningar, och således kommer det att förutsättas att läsaren är en student. Om så inte är fallet, läs gärna vidare och skapa dig en egen bild av ditt behov.
+
+Några saker i \LaTeX{} som skiljer sig mot exempelvis Word är:
+\begin{itemize}
+\item Du ser (vanligtvis, även om det finns mjukvara som stödjer det) inte hur dokumentet ser ut medan du redigerar det.
+\item Du behöver känna till specifika kommandon för \LaTeX-markup.
+\item Det kan emellanåt vara svårt att få till ett specifikt utseende på dokumentet.
+\end{itemize}
+Bland fördelarna å andra sidan finner vi:
+\begin{itemize}
+\item ``Källkoden'' till dokumentet kan läsas och redigeras i valfri texteditor.
+\item Du kan fokusera på struktur och innehåll av dokumentet utan att fastna i layoutdelen.
+\item Du behöver inte manuellt justera teckensnitt, typstorlekar etc. för läsbarhet då detta sköts automatiskt av \LaTeX.
+\item Dokumentstrukturen kan göras lättöverskådlig och kopieras till andra dokument. Med WYSIWYG är det inte alltid självklart hur olika formatteringar producerades och det kan vara omöjligt att direkt kopiera det för användning i ett annat dokument. (Den som gång efter annan slitit sitt hår med sidnumreringar och innehållsförteckningar i MS Word vet vad som syftas på här.)
+\item Layout, teckensnitt, typstorlekar och så vidare är konsekventa och enhetliga genom hela dokumentet.
+\item Matematiska formler kan lätt typsättas.
+\item Innehållsförteckning, fotnoter, citat och referenser kan skötas med lätthet.
+\item Du tvingas att strukturera dina dokument på ett adekvat vis.
+\end{itemize}
+
+\subsection{\LaTeX-filosofin}
+Det mest frustrerande för den nytillkomne \LaTeX-användaren är oftast den låga flexibiliteten gällande dokumentdesign och layout. Har man väldigt specifika krav på utseende kan det vara svårt att åstadkomma just detta. Men, kom ihåg att \LaTeX\ sköter formatteringen åt dig, och oftast på ett bra sätt. Även om det kanske inte är exakt vad du eftersträvar så är \LaTeX:s sätt sällan sämre, om inte bättre. För den som verkligen vill ha full kontroll, ja då kan måhända \TeX\ vara ett alternativ, men för generell student är det knappast ett problem. I det här dokumentet kommer dock de vanligaste formatteringsfrågorna att behandlas, och om det är något specifikt problem som inte tas upp är du sannolikt inte den förste att ha haft problemet, och således torde det inte vara svårt att finna en lösning på problemet.
+
+Men, som tidigare sades, filosofin är att användaren i så låg utsträckning som möjligt ska behöva gå in och justera stora saker, och de små sakerna är oftast lättlösta.
+
+\section{Installation}
+Om du bara är ute efter att pröva på \LaTeX\ behöver du inte installera något. Det finns åtskilliga online-redigerare att leka runt med, men vi förutsätter i det här avsnittet att du ämnar använda \LaTeX\ regelbundet och således är en lokal installation att föredra.
+
+\LaTeX\ är inte ett program i sig, det är ett språk. För att använda oss av det språket krävs en uppsättning verktyg. Många av dessa verktyg finns tillgängliga i så kallade distributioner, en samling av de allra flesta verktyg som kan tänkas behövas. Vi kommer att behöva en sådan, en bra text-editor och en DVI- eller PDF-läsare. Mer specifikt behöver vi en \TeX-kompilator (som skapar utfiler utifrån källkoden), teckensnitt och \LaTeX-biblioteket. Vidare vill vi troligen även ha en vettig editor och måhända ett bibliografiskt referenshanteringsprogram om vi ämnar använda litterära referenser.
+
+\subsection{Distributioner}
+Det finns många olika distributioner att välja mellan och det står läsaren fritt att välja, men den främsta rekommendationen här kommer att vara TeX Live\footnote{\url{www.tug.org/texlive/}} som finns för Windows, Mac OS X, GNU/Linux och *BSD. För installationsdetaljer hänvisas till distributionens hemsida samt operativsystemet i frågas dokumentation. Dock rekommenderas att installera distributionen i sin helhet. Man vet aldrig vad man kommer behöva framöver och diskutrymme torde vara en tämligen marginell fråga i sammanhanget.
+
+\subsection{Editorer}
+Om antalet distributioner kan betecknas som ``många'' så är antalet editorer snarare ``löjligt många''. Filformatet .tex är inget annat än en ``oformatterad'' (oformatterad sånär som på teckenkodning) textfil, så det program som kan hantera .txt-filer är kapabelt att läsa och skriva .tex. Dock rekommenderas att inte använda WYSIWYG-editorer då dessa kan få för sig att formattera filerna på ett oönskat sätt. Dessutom är det önskvärt att använda ett program som känner av och färgkodar \LaTeX-syntax. Det senare finns stöd för i de flesta mer ``kodinriktade'' editorer som finns att tillgå. Exempel på dessa är Emacs\footnote{\url{www.gnu.org/software/emacs}}, Vim\footnote{\url{www.vim.org}}, Sublime Text\footnote{\url{www.sublimetext.com}} och Notepad++\footnote{\url{www.notepad-plus-plus.org}}. För den oerfarne kan dock en mer specialiserad \LaTeX-editor vara aktuell.
+Gummi\footnote{\url{http://gummi.midnightcoding.org}} är exempelvis en editor för Linux som renderar output i realtid vilket gör steget över till WYSIWYM något kortare, LyX\footnote{\url{www.lyx.org}} erbjuder möjligheten att till viss del skapa dokument i WYSIWYG-stil och finns till Windows, Linux och OSX. Utöver dessa finns en uppsjö alternativ som kan hjälpa till med att infoga syntaxer för specialtecken, formattering etc. och det lämnas härvid till läsaren att själv pröva runt bland utbuden, men med en rekommendation att de facto lära sig adekvat kodning så snart som möjligt, inte minst för att göra källkoden lättläst för andra användare. Det här dokumentet bör vara grund nog att stå på för att helt ta steget bort från ``fullösningar'' som exempelvis LyX.
+
+\subsection{Referenshantering}\label{sec:refsoft}
+Referenshantering är en av de största fördelarna med \TeX. Genom att spara all referenslitteratur i .bib-format kan referenser lätt hanteras i enskilda dokument utan att behöva hålla minutiös ordning på alla källor. Det finns många olika BibTeX-hanterare, men JabRef\footnote{\url{http://jabref.sourceforge.net}} och Mendeley\footnote{\url{http://www.mendeley.com}} är ett par plattformsoberoende editorer väl värda att ta en titt på.
+
+\subsection{PDF-läsare}
+\LaTeX genererar i första hand en .dvi-fil, men det är sällan det format vi vill ha slutprodukten i. I stort sett alla distributioner har dock en kompilator som antingen producerar en PDF-fil direkt eller som konverterar DVI-filen till PDF. Sannolikt har du redan en PDF-läsare redan installerad, i annat fall rekommenderas exempelvis Adobe Reader, epdfview, Evince eller Okular.
+
+\subsection{Övrigt}
+Utöver dessa verktyg finns även en stor uppsättning onlineverktyg för att skapa olika grafiska element, underlätta kollaborativt skrivande etc. Det är dock inget som det här dokumentet kommer att beröra närmare, men det kan vara värt att känna till att det finns en ocean av hjälpmedel att tillgå. Som tidigare nämnts så har säkerligen någon redan haft de problem du kommer att springa på, och många har dessutom tagits fram lösningar på.

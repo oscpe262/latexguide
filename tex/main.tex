@@ -1,0 +1,44 @@
+%% Main Document
+\pagestyle{plain}
+
+\setcounter{page}{1}
+\chapter{Komma igång}\label{sec:intro}
+\input{./tex/inledning.tex}
+
+\chapter{Grunderna}\label{sec:grunder}
+\input{./tex/grunder.tex}
+\input{./tex/extgrunder.tex}
+
+\chapter{Dokumentstruktur}\label{sec:dokstruk}
+\input{./tex/dokstruktur.tex}
+
+\chapter{Textformattering}\label{sec:text}
+\input{./tex/textformat.tex}
+
+\chapter{Sidlayout}\label{sec:sidor}
+\input{./tex/sidlayout.tex}
+
+\chapter{Grafiska representationer}\label{sec:grafik}
+\input{./tex/grafiska.tex}
+
+\chapter{Matematiktypsättning}\label{sec:math}
+\input{./tex/matematik.tex}
+
+\chapter{Kemi, teknik etc.}\label{sec:kemi}
+\input{./tex/ketk.tex}
+
+\chapter{Referenshantering}\label{sec:referenser}
+\input{./tex/libtex.tex}
+
+\appendix
+\chapter{Appendix}\label{sec:appendix}
+        \section{Kommandon}\label{sec:kommandon}
+        \input{./tex/kommandon.tex}
+
+\section{Paket}\label{sec:paket}
+
+Författaren har haft för avsikt att på de ställen där exempelkommandon förekommit ange nödvändiga paket. Dock kan missar ha smugit sig in. För att täcka upp för dessa ges därför här en komplett lista på de paket som behövs för att kompilera samtlig kod angiven i detta dokument fram till, men ej inkluderande, \ref{sec:appendix} Appendix. Skulle någon miss hittas, anmäl gärna detta till tidigare angiven mailadress.
+
+\texttt{titlesec, tikz, textcomp, fixltx2e, color, fullpage, graphicx, afterpage, float, parskip, mathtools, xfrac}
+
+

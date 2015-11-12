@@ -1,0 +1,40 @@
+\LaTeX\ filosofi är att användaren inte ska behöva interagera nämnvärt med textformattering, men möjligheterna finns givetvis och vissa saker får man förväntas sköta på egen hand. Den som vill kan läsa på via externa källor hur man juserar radavstånd etc. I det här dokumentet, för att inte bli en ogenomtränglig lunta, kommer dock endast det viktigaste att behandlas.
+
+\section{Radbrytningar och avstavningar}
+Radbrytningar och avstavningar sköts i mångt och mycket automatiskt av \LaTeX, och användaren är inte menad att tvångsstyra detta. Anledningen är enkel: om något tidigare i texten justeras kan påtvingade radbrytningar och avstavningar senare i texten få oönskade resultat. I mångt och mycket försöker \LaTeX\ att justera mellanrummet mellan ord på varje rad för att inte radbryta mitt i ord (avstavning). Med lite otur kan dock långa ord komma att avstavas med bindestreck, och då sällan där man önskar. Detta kan justeras med \tb{}- på de ställen i ett långt ord där brytning kan ses som okej. Avstavning kan undvikas helt genomatt sätta  \tb{}hyphenpenalty=100000, men det kan även det ge oönskade konsekvenser. \verb+\usepackage[swedish]{babel} +kan även lösa en del avstavningsbekymmer, men långt ifrån alla. Sistnämnt kommando medför dock fördelen att fasta uttryck såsom ``Table of Contents'' och ``Figure'' översätts utan att användaren manuellt behöver skriva över dessa.
+
+Om flera ord skall tvingas att hållas på samma rad kan \tb{}mbox\{text\} användas.
+
+\section{Upphöjt och nedsänkt läge}\label{sec:textexp}
+Upphöjt och nedsänkt läge sköts lättast genom att använda paketet \texttt{fixltx2e} och i kombination med kommandona \tb{}textsubscript\{text\} och \tb{}textsuperscript\{text\}. Det senare behöver dock inte fixltx2e. I \emph{math mode}\footnote{se \ref{sec:math} sid. \pageref{sec:math} och \ref{sec:mathexp} sid. \pageref{sec:mathexp}} kan \_\{\} respektive \^{}\{\} användas.
+
+\section{Nytt stycke}
+Som vi på tidigt stadium nämnde så markeras nytt stycke med en tom rad. Standarden för nytt stycke i \LaTeX\ är ny rad följt av indentering. Den som inte önskar indentering och i stället vill ha lite extra radavstånd kan enkelt inkludera paketet \texttt{parskip}.
+
+\section{Verbatim}
+Ett (av alla) sätt att inkludera text utan typsättning är genom verbatim-miljön (\tb{}begin\{verbatim\}). Allt mellan begin och end kommer då att skrivas ut precis som det står, inklusive multipla mellanslag, radbrytningar etc., i ett typsnitt med fixerad teckenbredd. Det gör denna miljö utomordentligt lämpad för exempelvis infogande av kod. Verbatim medför dock att inga andra kommandon läses. Om detta är ett problem och exempelvis \tb{}emph behöver användas så kan \texttt{\tb{}usepackage\{alltt\}} användas tillsammans med \texttt{\tb{}begin\{alltt\}...\tb{}end\{alltt\}}
+
+\section{Citat och fotnoter}
+Citat kan anföras med \tb{}quote, \tb{}quotation och \tb{}verse. De första två är sannolikt de mest aktuella, där \tb{}quote används för korta citat och \tb{}quotation för längre. Citattecken ingår inte utan måste läggas till separat.
+
+Fotnoter infogas med \verb+\footnote{Exempel på fotnot}+.
+
+\section{Teckensnitt}
+Teckensnitt kan ändras, men avrådes från. Seriffbaserade teckensnitt (såsom är standard i \LaTeX) är mer lättlästa än serifflösa och all användning av Comic Sans är belagt med spöstraff på stadens torg. Således sker all ändring av teckensnitt på eget bevåg och egen risk och behandlas inte här.
+
+\textbf{Fetstilt text} avrådes också ifrån, men kan användas genom \tb{}textbf\{text\} om nöden kräver. I de flesta fall rekommenderas dock \tb{}emph\{text\} vilket gör normal text \emph{kursiv}, och kursiv text (inom \tb{}quotation exempelvis) normal. Understruken text skall inte förekomma, någonsin.
+
+För \texttt{fast teckenbredd} kan \tb{}texttt\{text\} användas. Vidare ger \tb{}textsc\{text\} \textsc{kapitäler}, och \tb{}uppercase ger \uppercase{versaler}.
+
+\section{Listor}
+Punktlistor kan förekomma titt som tätt och är tämligen enkla att skapa. \LaTeX erbjuder tre olika listor vilka kan nästlas och alla följer samma syntax:
+
+\begin{verbatim}
+\begin{list_type}
+    \item Punkt ett
+    \item Punkt två
+    \item Punkt tre
+\end{list_type}
+\end{verbatim}
+
+``List\_type'' ersätts med \emph{itemize, enumerate\em\ eller\em description}. Listor kan konfigureras mer detaljerat, men det lämnas åt läsaren att fördjupa sig i om intresse finns.

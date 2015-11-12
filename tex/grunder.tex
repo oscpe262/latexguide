@@ -1,0 +1,118 @@
+I den här delen kommer du att lära dig grunderna i \LaTeX. Innan du börjar, säkerställ att du har installerat \LaTeX\ enligt del 1 ovan. Du kommer att få bekanta dig med grundläggande syntax, skapa ett första \LaTeX-dokument och sedan få en snabbtitt på filtyper.
+\section{\LaTeX-syntax}
+\LaTeX\ är ett markup-språk som beskriver hur något ska visas i sin utdataform. För den som någon gång knackat HTML eller använt BB-kod på något internetforum torde konceptet inte vara helt främmande.
+
+Källfilen är en ren text-fil\footnote{\url{http://en.wikipedia.org/wiki/Plain_text}}. Den kommer att innehålla dels dokumentets text och dels de kommandon som sköter typsättningen. Ett exempel på hur det kan se ut är:
+
+\bve
+\documentclass{article}
+\begin{document}
+Hello world!\end{document}
+\end{verbatim}
+
+\subsection{Vita tecken}
+Vita tecken (eng. ``Whitespace''), såsom mellanslag och ``tabb'' görs ingen skillnad på i \LaTeX. Inte heller görs någon skillnad på ett, två eller tio mellanslag, det ses som ett enda vitt tecken. Mellanslag på ny rad ignoreras och en enkel radbrytning ses även det som ett vitt tecken. En tom rad mellan två rader text tolkas som styckesslut och flera tomma rader tolkas på samma sätt som en.
+
+\subsection{Reserverade tecken}
+Många tecken är reserverade på grund av att de antingen fyller en syntaktisk funktion i \LaTeX, eller på grund av att de inte är tillgängliga i alla teckensnitt. Inte bara kommer de inte att visas i din text, men de riskerar även att få kompileringen att misslyckas.
+
+\# \$ \% \^{} \& \_ \{ \} \~{} \tb{} är alla reserverade men kan skrivas med ett föregående \tb:
+
+\verb?\# \$ \% \^{} \& \_ \{ \} \~{} \textbackslash{}?
+
+Tecknet \tb kan inte föregås av ännu ett, ty \tb\tb{} används för radbrytning. I \emph{math mode}\footnote{se kap. \ref{sec:math}, sid. \pageref{sec:math}} används \tb backslash. Kommandona \tb\^{} och \tb\~{} kommer att placera tecknet över nästkommande tecken, således behövs tomma måsvingar för att ge dem ``nollargument''. Även \tb textasciitilde och \tb textasciicircum kan användas.
+
+\subsection{Groups}
+En ``group'' definieras genom ett par måsvingar. Det som placeras innanför dessa måsvingar gäller endast innanför. För vissa kommandon är det viktigt att ge restriktioner för dess omfattning och där kommer vi finna dessa måsvingar användbara.
+
+\bve
+{ \bf Den här texten är fetstild }
+Den här är inte fetstild.
+\end{verbatim}
+
+\subsection{Environment}\label{env}
+\emph{Environments}, miljöer, fungerar ungefär som kommandon, men omfattar vanligen en större del av dokumentet. Syntaxen är:
+
+\bve
+\begin{environmentname}
+text som ska påverkas
+\end{environmentname}
+\end{verbatim}
+
+\subsection{Kommandon}
+Kommandon är skifteskänsliga och börjar alltid med \tb. De har därefter ett namn bestående endast av bokstäver (A-Z) \emph{eller en} siffra. Visso kommandon behöver argument vilka ges inom måsvingar, och vissa stödjer valfria parametrar vilka ges inom \lbrack\rbrack. Syntaxen blir således:
+
+\verb?\kommando[parameter1,parameter2,...]{argument1}{argument2}?
+
+Många kommandon har ett motsvarande ``växelkommando'', d.v.s. ett kommando som slår på/av funktionen. Dessa bör som regel aldrig användas utanför en \emph{group\em eller \em environment}.
+
+\begin{verbatim}
+ % \emph är ett kommando med argument, \em är ett växelkommando.
+
+\emph{emfaserad text}, normal text % korrekt
+{ \em emfaserad text}, normal text % korrekt
+  \em emfaserad text, normal text % inkorrekt
+  \em{emfaserad text}, normal text % inkorrekt
+\end{verbatim}
+
+\subsection{Kommentarer}
+Kommentarer inleds med \% och skrivs inte ut vid kompileringen av dokumentet. Kommentarer gäller för resten av raden samt inledande vita tecken på nästföljande rad.
+
+\section{Ett första dokument}
+Låt oss nu skapa ett första \LaTeX-dokument. Skapa en fil med följande innehåll och ge den namnet \texttt{hello.tex}:
+
+\begin{verbatim}
+  % hello.tex - Vårt första LaTeX-exempel!
+
+  \documentclass{article}
+  \begin{document}
+  Hello world!
+  \end{document}
+\end{verbatim}
+
+\subsection{Vad betyder det hela?}
+Vår första rad är en kommentar då den inleds med \%. Kompilatorn kommer att ignorera resten av raden. Användbart för att annotera källkoden.
+
+Andra raden berättar för kompilatorn vilket format dokumentet kommer att ha. Utifrån typen kommer olika kommandon att vara tillgängliga och formatteringen anpassas utifrån en styrd mall.
+
+Tredje raden påbörjar själva dokumentet. Allt ovanför den här raden kallas \emph{preamble}.
+
+Fjärde raden är den enda rad som faktiskt innehåller något matnyttigt - texten vi vill ska skrivas ut.
+
+Femte raden avslutar dokumentet. Allt efter det här kommandot kommer att ignoreras av kompilatorn.
+
+\subsection{Kompilering och filtyper}
+Använder du en dedikerad \LaTeX-editor (ex. Latexila) kommer det sannolikt att finnas någonting i stil med \emph{compile $\rightarrow$ PDF} under någon meny. Exakt vad kommandot heter för varje program vore en omöjlighet att lista, men det borde vara tämligen lätt att hitta. Kompilera och se att allting fungerar. Försök även att stava fel på något kommando för att hitta var eventuella felkommandon dyker upp i just ditt program.
+
+För den som använder en texteditor under Linux kan det vara värt att pröva att kompilera via terminalen.
+
+\verb?$ pdflatex hello.tex?
+
+Ett varningens finger bör även lyftas vad gäller filnamn. Även om det sällan är ett problem i dagens läge så bör följande konventioner följas för att undvika problem. Det är på intet sätt exklusivt för \LaTeX{} utan bör följas strikt oavsett.
+\begin{itemize}
+\item Använd aldrig mellanslag.
+\item Håll dig till små bokstäver (a-z), siffror (0-9), bindestreck (-), och punkt (.) endast för att separera filändelse.
+\end{itemize}
+De flesta operativsystem hanterar mellanslag utmärkt, men det är inte garanterat att alla program gör det. Samma sak gäller specialtecken och bokstäver utanför det engelska alfabetet (åäö\_ etc.). 
+
+Kompilering av \TeX-filer är så kallade ``single-pass''-processer. Det vill säga, de kompileras rad för rad, uppifrån och ned. Det betyder att interna referenser (exempelvis sidnummer) till något som kommer senare inte kan kompileras på ett tidigare stadium. Det innebär att första gången ett dokument kompileras kan exempelvis inte en innehållsförteckning veta på vilken sida sista avsnittet hamnar. Det löser kompilatorn med diverse temporära filer vilka sedan inkluderas i nästa kompilering. Således kan ett dokument att behöva kompileras mer än en gång för att bli korrekt.
+
+\begin{tabular}{|c|p{14.5cm}|}
+  \hline
+  \multicolumn{2}{|c|}{Vanliga filtyper i \LaTeX}\\
+  \hline
+  .aux & Transporterar information från en kompilering till nästa.
+  Bland annat sparas information relaterad till korsreferenser.\\\hline
+  .bbl & BiBTeX-utdatafil.\\\hline
+  .bib & BiBTeX-databasfil.\\\hline
+  .blg & BiBTeX-loggfil\\\hline
+  .cls & Klassfil, definierar hur dokumentet kommer se ut. Väljs via \tb documentclass.\\\hline
+  .dvi & Device Independet File. Renderad fil, men utan exempelvis inkluderade teckensnitt.\\\hline
+  .pdf & Portable Document Format. Renderad fil med allt inkluderat för att kunna visa den exakt som den genererats oa         vsett vilken enhet som visar den.\\\hline
+  .log & Loggfil över senaste kompileringen.\\\hline
+  .toc & Sparar alla section-headers. Inläses vid nästa kompilering och används för generering av inne\-hållsförteckning          (Table of Contents)\\\hline
+  .lof & Som .toc men för List of Figures\\\hline
+  .lot & Som .toc men för List of Tables\\\hline
+  .tex & Dokumentkällkod. Den fil som kompileras.\\\hline
+\end{tabular}
+

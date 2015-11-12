@@ -1,0 +1,52 @@
+Varje akademiker värd namnet känner till vikten av referenser. Varje akademiker värd namnet och som inte använt \LaTeX{} känner till \emph{vikten} av referenshantering.
+
+\LaTeX{} kan givetvis med enkla grepp som vi redan lärt oss hantera enklare referenshantering med fotnoter, men det kräver fortfarande att man håller reda på sina källor själv. Det finns idag mången programvara som kan underlätta det hela, såväl online som offline, men få (som inte bygger på BibTeX) som når lika långt och sömlöst som BibTeX går ihop med \LaTeX.
+
+BibTeX håller alla de verk man sparar i en databas. Den databasen kan i sin tur sedan länkas till i godtyckligt \LaTeX-dokument och citat göras till valfri referens i databasen. Givetvis kan man även spara verken i multipla databaser om så önskas även om det troligen är mest aktuellt för den som redan sysslar med forskning och således sannolikt redan är bekant med BibTeX.
+
+Mitt emellan dessa två finner vi dessutom \LaTeX:s inbyggda system, \verb?thebibliography?. Det är måhända det mest aktuella för allt under examensarbetesnivå då mängden litteratur fortfarande är hanterbar manuellt och då det inte direkt finns någon vinst tidsmässigt med BibTeX.
+
+\section{Användning av thebibliography}
+\subsection{Litteraturförteckning}
+\LaTeX skeppas med en miljö kallad \verb?thebibliography? som används där man vill ha sina källor (vanligtvis mot slutet av dokumentet). Vi hoppar direkt på ett exempel:
+
+\begin{verbatim}
+\begin{thebibliography}{9}
+
+\bibitem{lamport94}
+Leslie Lamport,
+\emph{\LaTeX: A Document Preparation System}.
+Addison Wesley, Massachusetts,
+2nd Edition,
+1994.
+
+\end{thebibliography}
+\end{verbatim}
+
+Vad händer då här? Först och främst skapar vi miljön, i det här fallet med parametern \{9\}. Det innebär att vi begränsar litteraturförteckningen till 9 element, men det är inte siffran i sig som avgör det. Parametern ``3'' hade gett samma resultat; det är alltså \emph{antalet siffror} som avgör antalet källor. ``34'' möjliggör exempelvis 99 källor.
+
+I och med att vi skapar denna miljö skapar vi även ett nytt kapitel som kommer att\footnote{under förutsättning att vi satt svenska som språk -- \tb usepackage\lbrack swedish\rbrack\{babel\}} få titeln ``Litteraturförteckning''.
+
+Därefter kommer själva verket vilket inleds med en citeringsnyckel (\verb?\bibitem{cite_key}?) som skall vara en unik identifierare för just det verket. Citeringsnyckeln får innehålla A-Z, a-z, 0-9 och vissa skiljetecken (ej kommatecken). Normen är att ange författarensnamn och årtalet, samt en extra bokstavsnumrering om författaren varit flitig ett visst år. Men det är givetvis upp till var och en att avgöra hur man vill sköta det, även om en standard kan vara på sin plats vid kollaborativt skrivande.
+
+Därefter kommer det som ska skrivas ut i litteraturförteckningen. Du måste skriva det som du vill ha det presenterat. Vi har här gett elementen egna rader för läsbarhetens skull, men i sedvanlig ordning ignoreras dessa radbrytningar av \LaTeX.
+
+\subsection{Citat och referenser}
+Nog för att vi nu har en fin litteraturförteckning, men den kommer inte göra mycket nytta om den inte hänvisas till. Tyvärr kommer den akademiska världen med flera olika standarder gällande hur man anger källor, och för att krångla till det är alla inte alltid konsekventa med namnen på dessa. De termer som används i detta dokument är dock följande:
+\itb
+  \item Oxfordsystemet: fotnotsreferenser
+  \item Vancouversystemet: siffra inom hakparentes med numrerad litteraturförteckning
+  \item Harvardsystemet: författare och år inom bågparenteser
+\ite
+
+Utan handpåläggning kommer vancouversystemet att användas, men nedan nämns även kort hur harvardsystemet kan implementeras. Låt oss dock börja från början.
+
+För att citera en källa använder vi oss av \texttt{\tb cite\{\emph{cite\_key}\}}, där \emph{cite\_key} är det ``bibitem'' vi citerar. När \LaTeX{} processar dokumentet kommer, i likhet med andra former av interna referenser, att korsreferera mot vår litteraturlista och hålla ordning på numreringen. Tänk dock på att det kan behöva kompileras en extra gång, av samma anledning som vår innehållsförteckning.
+
+Vill vi sedan ange ett sidonummer kan vi lägga till det som parameter (\verb?\cite[sid.~215]{cite_key}?) och vill vi ange flera källor använder vi endast ett \verb?\cite{}? men med kommateckensseparerade (utan mellanslag) argument.
+
+\subsection{Natbib}
+Vancouversystemet är vanligt på de tekniska fakulteterna, men det finns hopp även för de som är hänvisade till harvardsystemet. Detta möjliggörs genom \verb?natbib?. Undertecknad har inte lyckats få det att fungera ihop med ``thebibliography'', men tillsammans med BibTeX kan vi utan problem överskugga det inbakade vancouversystemet med en uppsättning alternativa kommandon\footnote{\url{http://en.wikibooks.org/wiki/LaTeX/Bibliography_Management\#Natbib}} för att få harvardsystemets referensmodell. 
+
+\subsection{BibTeX}
+BibTeX använder en stiloberoende textbaserad databas för att spara referenser. Filformatet slutar vanligen på .bib och exempel på mjukvaror har ges i avsnitt \ref{sec:refsoft} (sid. \pageref{sec:refsoft}). BibTeX och dess implementering i \LaTeX ställer en del krav på noggrannhet och vid en första anblick kan det verka som att det är väldigt mycket att hålla koll på. Det är dock relativt lätt att hitta exempelmallar på själva implementeringen, och därefter är det bara att se till att de obligatoriska uppgifterna för verk refererade i aktuell typ av dokument är inskrivna i databasen. För en mer detaljerad introduktion till BibTeX hänvisas till referenslitteratur\footnote{\url{http://en.wikibooks.org/wiki/LaTeX/Bibliography_Management\#BibTeX}}

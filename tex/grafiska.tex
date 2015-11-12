@@ -1,0 +1,292 @@
+Grafiska representationer används ofta i akademiska texter (för ofta skulle nog vissa tillstå). \LaTeX och besläktade bibliotek bjuder på åtskilliga möjligheter att åskådliggöra vad det än må vara. Värt att betänka är dock att \LaTeX\ inte är något kalkylbladsprogram, program för vektorgrafik och så vidare. Även om mycket kan åstadkommas så är det främst genom möjligheterna att importera filer som de mer komplicerade illustrationer kan tillhandahållas. Men som sagt, mycket kan göras direkt i \LaTeX, oftast mer än man tror och definitivt mer än vad som kommer att behandlas här.
+
+\section{Tabeller}
+Tabeller är en av de vanligaste formerna av grafiska representationer vi stöter på i akademiska sammanhang. Det finns flera möjligheter att skapa dessa i \LaTeX, men vi ska titta närmre på \textbackslash tabular. Syntaxen är enkel:
+
+\begin{verbatim}
+\begin{tabular}{tabellspec}
+DataA & Data1\\
+DataB & Data2\\
+...
+\end{tabular}
+\end{verbatim}
+
+Den modellen på tabell fungerar utmärkt i de allra flesta fall, eventuellt med tillägget \verb=\hline= för varje rad. Utformningen blir då i stil med tabellen nedan.
+
+Antalet kolumner specifieras av de argument som anges i tabellspec. Om ingen specifik bredd angess på en kolumn anpassas den till innehållet. Tabellspec listar elementen (inklusive separatorer) från vänster till höger med följande argument:
+
+\begin{tabular}{|l|p{13.5cm}|}
+  \hline
+  l & vänsterjusterad kolumn \\\hline
+  c & centrerad kolumn \\\hline
+  r & högerjusterad kolumn\\\hline
+  p\{bredd\} & paragrafkolumn, (bredd) bred, toppjusterad\\\hline
+  m\{bredd\} & paragrafkolumn, (bredd) bred, centrerad i höjdled\\\hline
+  b\{bredd\} & paragrafkolumn, (bredd) bred, bottencentrerad (kräver paketet \texttt{array}\\\hline
+  $\mid$ & vertikal separator\\\hline
+  $\mid\mid$ & dubbel separator\\\hline
+\end{tabular}
+
+För att separera celler med utskriven linje används \verb+\hline+ eller \verb+\cline+. Radbrytning i en paragrafkolumn sköts med \verb+\newline+ och om text ska spänna över flera celler används \verb+\multicolumn{2}{justering}{text}+ där vi först anger antalet kolumner följt av justering (lcr) och sedan innehållet. Nedan ges en \emph{nonsenstabell} (\textbf{bör absolut inte tolkas som ett exempel på hur en bra tabell ser ut}) som exempel på implementering:
+
+\begin{verbatim}\begin{tabular}{|r|c|l||}
+  \hline
+  \multicolumn{3} {|c|} {Exempeltabell}\\
+  \hline
+  \multicolumn{1}{|r}{} & \multicolumn{1}{c}{Data} & \multicolumn{1}{c|}{Kommentarer} \\
+  \cline{2-3}
+  Variabel1 & Data1 & Kommentar\\
+  \cline{2-3}
+  Variabel2 & Data2 & Kommentar\\
+  \hline
+\end{tabular}
+\end{verbatim}
+
+\begin{tabular}{|r|c|l||}
+  \hline
+  \multicolumn{3} {|c|} {Exempeltabell}\\
+  \hline
+  \multicolumn{1}{|r}{} & \multicolumn{1}{c}{Data} & \multicolumn{1}{c|}{Kommentarer} \\
+  \cline{2-3}
+  Variabel1 & Data1 & Kommentar\\
+  \cline{2-3}
+  Variabel2 & Data2 & Kommentar\\
+  \hline
+\end{tabular}
+
+\section{Infoga bilder}
+Att infoga bilder som skapats externt är inte sällan ett måste. Detta sköter vi med \verb+\usepackage{graphicx}+ och kommandot \verb+\includegraphics[]{filnamn.ext}+. Vi kan skapa en standardmapp med relativ eller konstant sökväg genom \verb+\graphicspath{{./bildmapp/}}+ i preamblen och om en sådan har angetts letas bilder i denna. Om ingen sådan angetts förväntas bilden ligga i samma mapp som .tex-filen. Inom hakparenteser har vi möjlighet att ange exempelvis en bredd att skala bilden till (t.ex. width=40mm), en höjd (height=100px) eller en skalningsfaktor (scale=0.5 halverar storleken). Bilden kan även roteras genom att ange ett gradtal (angle=270).
+
+\subsection{Bildformat}
+\LaTeX\ hanterar de flesta vanliga filformaten på bilder. Det innebär dock inte att vissa filformat är att föredra över andra. Lågupplösta bilder med artefakter kan lätt se illa ut i utskrivet format.
+
+Vi skiljer vanligen på två olika former av bildformat - rastergrafik och vektorgrafik. Rastergrafik kan liknas vid ett rutat papper där man fyller i ruta för ruta. Skalar man upp bilden med samma antal rutor syns enskilda rutor lätt, ett resultat man sällan önskar. Vektorgrafik å andra sidan kan snarast liknas vid en beskrivning av hur bilden ska ritas (dra en linje från (x$_1$,y$_1$) till (x$_2$,y$_2$) ...). Fördelen med det vektorgrafik är att den kan skalas obehindrat. En cirkel i vektorgrafik ser lika rund ut om den skalas till en radie på 3 m som om den skalas till en radie på 3 cm. Vektorgrafik är således att föredra, men det är inte alltid vektorgrafik finns att tillgå (fotografier exempelvis).
+När det kommer till rastergrafik vill vi om möjligt ha bilder i okomprimerat format eller format med icke-förstörande komprimering. JPEG-filer är det idag mest spridda bildformatet, men det har en förstörande komprimering. Varje gång bilden redigeras och sparas om förloras en del av informationen (jämför med att kopiera en kopia av en kopia). 
+
+Filformat som är att föredra är således vektorgrafik (EPS över PDF) över rastergrafik (PNG över JPEG), för att nämna några av de vanligaste.
+
+Inkscape\footnote{\url{http://www.inkscape.org}} är en gratis open-source-programvara för skapande av vektorgrafik. Inlärningskurvan är inte särskilt brant och väl värd att ta sig över. Inkscape finns till Windows, OS X och Linux.
+
+\newcommand{\TikZ}{Ti\emph{k}Z}
+Ett alternativ värt att behärska är dock procedurell grafik\footnote{se \ref{sec:tikz} sid. \pageref{sec:tikz}} (skapande av grafik direkt i källkoden med hjälp av bibliotek, exempelvis \TikZ).
+
+\section{Float, figure, caption}\label{sec:floats}
+Att klämma in en bild på måfå mellan två stycken ser tämligen amatörmässigt ut. Det vi vill åstadkomma är figurer som hamnar på lämpliga ställen i texten och som sannolikt även har en beskrivande text. Vi kan även vilja referera till rätt figur i texten och få figurerna rätt numrerade. \LaTeX{} är utomordentligt väl lämpat för just detta. För detta behöver vi först acceptera \LaTeX{}-filosofin - låt \LaTeX{} göra layouten - och sedan förstå vad en ``float'' är.
+
+En float (\verb+\usepackage{float})+ är ett objekt som inte kan delas upp av en sidbrytning. Tabels och figures är floats, och vi kan även tilldela bilder och andra objekt taggen \emph{figure} för att få dem att agera som floats. En float kommer inte med säkerhet att placeras precis där man infogar den i källkoden, så därför bör textreferenser vara så generella som möjligt (undvik ``figuren nedan'' etc. Använd i stället ``se fig. x'') och vi kommer snart att se hur vi sköter detta dynamiskt.
+
+Syntaxen blir initialt följande (motsvarande för table):
+\begin{verbatim}
+\begin{figure}[placering]
+  ...figurkod...
+\end{figure}
+\end{verbatim}
+
+Placeringsparametrar som är tillgängliga är följande:
+
+
+\begin{tabular}{|l|p{13.5cm}|}
+    \hline
+    Parameter & Placeringsrestriktion \\
+    \hline
+    h & Placera ungefär här, inte exakt men så nära som möjligt\\
+    t & Placera överst på sidan\\
+    b & Placera nederst på sidan\\
+    p & Placera på en särskild float-sida\\
+    ! & Ignorera interna parametrar som \LaTeX{} använder för att avgöra vad som är en ``bra'' placering\\
+    H & Placera precis här! (Kräver paketet \verb+float+)\\
+    \hline
+    \end{tabular}
+
+När vi nu har en bra float vill vi gärna ge den en lämplig annotation. Vi börjar med att ändra standardannotationen ``Figure'' till svenska motsvarigheten: \verb+\renewcommand{\figurename}{Figur}+\footnote{Om vi med \texttt{babel} satt språket till annat än \emph{english} kommer annotationen att översättas automatiskt till ``Figur'', men kommandot kan komma till användning ändå.} (tablename i stället för figurename för table) för att att därefter lägga till kommandot \verb+\caption{text}+ i figure-blocket. Läggs det före figur-/tabellkoden hamnar annotationen ovanför, under så hamnar den under). Nu kommer figuren att tilldelas ett dynamiskt värde som anpassas efter hur många figurer/tabeller vi angett tidigare. För att kunna referera smidigt till den på ett dynamiskt sätt lägger vi även till \verb+\label{fig:namn}+. Nu kan vi närhelst vi vill referera till just den figuren genom \verb+\ref{fig:namn}+ vilket returnerar figurens tilldelade nummer, eller \verb+\pageref{fig:name}+ för att returnera sidnumret på vilken figuren är placerad. För tabeller är motsvarande tab:name. Exempelkod:
+
+\begin{verbatim}
+\begin{figure}[h]
+  \includegraphics[scale=0.75]{schematics.jpg}
+  \caption{Kopplingsschema över enheten}
+  \label{fig:schema}
+\end{figure}
+
+Figur \ref{fig:schema} visar aktuellt kopplingsschema.
+\end{verbatim}
+
+\section{PGF/\TikZ}\label{sec:tikz}
+\TikZ{} (\TikZ{} ist kein Zeichenprogramm, ung. ``\TikZ'' är inget ritprogram) är för ritande av grafik i \LaTeX{} vad \LaTeX{} är för typsättning. PGF är lågnivålagret och \TikZ{} är ett makrobibliotek som nyttjar PGF men underlättar syntaxen. \TikZ{} i sig kommer sedan med en uppsjö underbibliotek och vi kommer här endast att skrapa lite på ytan. Det är en hög inlärningströskel på \TikZ{}, men det är väl värt viss möda att orientera sig en del. Fördelen är att det är ``lätt'' att få enhetliga bilder, och tack vare den höga inlärningströskeln finns det gott om exempel på nätet för den som är intresserad att lära sig mer. Nackdelen å andra sidan är att det är lätt att tiden springer iväg om man ska skapa många illustrationer. Precis som namnet antyder är \TikZ{} inget ritprogram, och mer komplexa illustrationer kan ofta vara värda att skapa i exempelvis Inkscape.
+
+Det första steget i att använda \TikZ{} är att inkludera paketet (\verb+\usepackage{tikz}+ i preamble). Därefter kan vi ladda dess interna bibliotek via \verb+\usetikzlibrary{kommaseparerad bibliotekslista}+. Några exempel på bibliotek är calc, matrix, positioning, arrows, shapes, trees, plotmarks och decorations.markings. Inga av exemplen nedan kräver dock särskilda bibliotek utöver \verb+tikz+.
+
+När adekvata bibliotek är laddade kan vi skapa ett tikzpicture-block.
+
+\bve
+\begin{tikzpicture}[parametrar]
+  ...
+\end{tikzpicture}
+\end{verbatim}
+
+För kortare block kan vi även använda syntaxen \verb+\tikz[parametrar]{ ... }+. I parameterlistan kan vi exempelvis skala om bilden (scale=(faktor)) eller ange koordinatsystemets skalor (x=0.5cm, y=0.75cm). Standardskalan är 1 cm i x- och y-led.
+
+\subsection{Koordinater}
+När vi sedan går vidare använder vi ofta koordinater. Vi kan antingen ange kartesiska koordinater (kommaseparerade (1,2)) eller polära koordinater (kolonseparerade (ex. 1 cm i 30 graders riktning: \verb+30:1cm+)). Vi kan även ange koordinater relativt senaste noden (+ och ++). Med ``+'' står ursprungsnoden kvar som senaste nod, medan ``++'' anger den nya (den relativa) koordinaten som senaste nod. Ex. \verb?++(2,0)?
+
+\subsection{Vägar}
+Vi kan med hjälp av koordinater rita upp vägar\footnote{sv.wikipedia.org/wiki/Grafteori}. Instruktionen måste avslutas med ett semikolon (;) vilket möjliggör mer flexibel och lättläst kodning.
+
+\verb+\path[parametrar](specifikation);+
+
+Path-parametrar är exempelvis \verb+ draw, fill, pattern, shade, clip+. Path-kommandon med dessa kan slås ihop till \verb+\draw, \filldraw+ etc. Dessa kan i sin tur ta parametrar, \verb+\color=färg, draw=linjefärg, opacity=faktor+. Följande färger är giltiga: red, green, blue, cyan , magenta, yellow, black, gray, darkgray, lightgray, brown, lime, olive, orange, pink, purple, teal, violet, white.
+
+Utöver detta finns en uppsjö andra parametrar, exempelvis ``line width'', ``line cap'', ``arrows'' och diverse linjemönster (dotted, dashed, solid ...). Dessa lämnas dock till läsaren att grotta ner sig i, även om vi i ett senare exempel får se hur dessa kan nyttjas.
+
+Raka vägar ritas genom två koordinater separerade med \verb+--+ och kan om så önskas slutas med \verb+--cycle+.
+
+\verb+\draw (1,0) -- (0,0) -- (0,1) -- cycle;+ ger exempelvis:
+
+\begin{tikzpicture}
+\draw (1,0) -- (0,0) -- (0,1) -- cycle;
+\end{tikzpicture}
+
+Jämför detta med syntaxen \verb+\draw (1,0) -- (0,0)  (0,1) -- (1,0);+
+
+\begin{tikzpicture}
+\draw (1,0) -- (0,0) (0,1) -- (1,0);
+\end{tikzpicture}
+
+Sammankoppling av två noder med räta vinklar sker med \verb+|-+ och \verb+-|+. Vi kan utläsa dessa som  att \verb+|+ motsvarar vertikal och \verb+-+ horisontell förflyttning, läst från vänster till höger. \verb+|-+ blir således ``först vertikalt, sedan horisontellt''.
+
+\verb+\draw (0,0) |- (1,1)+\\
+\verb+\draw (2,1) -| (3,0)+
+
+\begin{tikzpicture}
+\draw (0,0) |- (1,1) (2,1) -| (3,0);
+\end{tikzpicture}
+
+Kurvade vägar kan skapas genom Bézier-kurvor\footnote{http://sv.wikipedia.org/wiki/Bézier-kurva} med en eller två ankarpunkter med operationen ``..controls() ..()''.
+
+\bve
+\begin{tikzpicture}
+\draw (0,0) .. controls (1,1) .. (4,0)
+      (5,0) .. controls (6,0) and (6,1) .. (5,2);
+\end{tikzpicture}
+\end{verbatim}
+
+\begin{tikzpicture}
+\draw (0,0) .. controls (1,1) .. (4,0)
+      (5,0) .. controls (6,0) and (6,1) .. (5,2);
+\end{tikzpicture}
+
+Vi kan även använda operationen ``to'' (utan parametrar motsvarar det \-\-). Tillsammans med parametrarna ``out'' och ``in'' kan vi skapa en krökt väg. Exempelvis får \verb+[out=135,in=45]+ en väg att lämna första koordinaten med en vinkel om 135 grader och ger en ankomst vid andra koordinaten i en vinkel om 45 grader.
+
+\bve\begin{tikzpicture}
+\draw (0,0) to (3,2);
+\draw (0,0) to[out=90,in=180] (3,2);
+\draw (0,0) to[bend right] (3,2);
+\end{tikzpicture}\end{verbatim}
+
+\begin{tikzpicture}
+\draw (0,0) to (3,2);
+\draw (0,0) to[out=90,in=180] (3,2);
+\draw (0,0) to[bend right] (3,2);
+\end{tikzpicture}
+
+\subsection{Geometriska former}
+Vidare finns även geometriska former, exempelvis ``rectangle'', ``circle'', ``ellipse'' och ``arc''. Dessa lämnas dock till läsaren att undersöka närmare, men vi ger ett exempel på hur ``rectangle'' kan användas:
+
+\bve
+\draw (0,0) rectangle (1,1);
+\shade[top color=yellow, bottom color=black] (0,0) rectangle (2,-1);
+\filldraw[fill=green!20!white, draw=green!40!black] (0,0) rectangle
+(2,1);\end{verbatim}
+
+\begin{tikzpicture}
+\draw (0,0) rectangle (1,1);
+\shade[top color=yellow, bottom color=black] (0,0) rectangle (2,-1);
+\filldraw[fill=green!20!white, draw=green!40!black] (0,0) rectangle
+(2,1);
+\end{tikzpicture}
+
+\subsection{Grafer m.m.}
+Utan att fördjupa oss alltför mycket ges här enstaka exempel på hur grafer kan skapas genom att använda olika operationer. Läsaren uppmuntras att antingen konsultera externa källor för närmare beskrivningar av dessa eller att kopiera dessa, ändra runt och se vad varje enskilt kommando gör. \TikZ är som sagt ett ofantligt stort bibliotek och det effektivaste sättet att lära sig det är ofta att möta varje problem när det uppstår.
+
+\begin{verbatim}
+\begin{tikzpicture}
+\draw[help lines] (0,0) grid (2,3);
+\draw[step=0.5, gray, very thin] (-1.4,-1.4) grid (1.4,1.4);
+\draw (0,0) parabola (1,1.5) parabola[bend at end] (2,0);
+\draw (0,0) sin (1,1) cos (2,0) sin (3,-1) cos (4,0) sin (5,1);
+\end{tikzpicture}
+\end{verbatim}
+
+\begin{tikzpicture}
+\draw[help lines] (0,0) grid (2,3);
+\draw[step=0.5, gray, very thin] (-1.4,-1.4) grid (1.4,1.4);
+\draw (0,0) parabola (1,1.5) parabola[bend at end] (2,0);
+\draw (0,0) sin (1,1) cos (2,0) sin (3,-1) cos (4,0) sin (5,1);
+\end{tikzpicture}
+
+\begin{verbatim}
+\begin{tikzpicture}
+\draw [->] (0,0) -- (30:20pt);
+\draw [<->] (1,0) arc (180:30:10pt);
+\draw [<<->] (2,0) -- ++(0.5,10pt) -- ++(0.5,-10pt) -- ++(0.5,10pt);
+\end{tikzpicture}
+\end{verbatim}
+
+\begin{tikzpicture}
+\draw [->] (0,0) -- (30:20pt);
+\draw [<->] (1,0) arc (180:30:10pt);
+\draw [<<->] (2,0) -- ++(0.5,10pt) -- ++(0.5,-10pt) -- ++(0.5,10pt);
+\end{tikzpicture}
+
+\begin{verbatim}
+\begin{tikzpicture}
+\foreach \x in {0,...,9}
+\draw (\x,0) circle (0.4);
+\end{tikzpicture}
+\end{verbatim}
+
+\begin{tikzpicture}
+\foreach \x in {0,...,9}
+\draw (\x,0) circle (0.4);
+\end{tikzpicture}
+
+\begin{verbatim}
+\begin{tikzpicture}
+\draw [help lines] (-2,0) grid (2,4);
+\draw[->] (-2.2,0) -- (2.2,0);
+\draw[->] (0,0) -- (0,4.2);
+\draw[green, thick, domain=-2:2] plot (\x, {4-\x*\x});
+\draw[domain=-2:2, samples=50] plot (\x, {1+cos(pi*\x r});
+\end{tikzpicture}
+\end{verbatim}
+
+\begin{tikzpicture}
+\draw [help lines] (-2,0) grid (2,4);
+\draw[->] (-2.2,0) -- (2.2,0);
+\draw[->] (0,0) -- (0,4.2);
+\draw[green, thick, domain=-2:2] plot (\x, {4-\x*\x});
+\draw[domain=-2:2, samples=50] plot (\x, {1+cos(pi*\x r});
+\end{tikzpicture}
+
+\begin{verbatim}
+\begin{tikzpicture}
+\filldraw
+(0,0) circle (2pt) node[align=left,
+below] {test 1\\is aligned
+left} --
+(4,0) circle (2pt) node[align=center, below] {test 2\\is centered}
+--
+(8,0) circle (2pt) node[align=right, below] {test 3\\is right
+aligned};
+\end{tikzpicture}
+\end{verbatim}
+
+\begin{tikzpicture}
+\filldraw
+(0,0) circle (2pt) node[align=left,
+below] {test 1\\is aligned
+left} --
+(4,0) circle (2pt) node[align=center, below] {test 2\\is centered}
+--
+(8,0) circle (2pt) node[align=right, below] {test 3\\is right
+aligned};
+\end{tikzpicture}

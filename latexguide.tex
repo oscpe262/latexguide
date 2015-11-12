@@ -1,0 +1,74 @@
+\documentclass[10pt,a4paper]{report}
+\usepackage[utf8]{inputenc}
+\usepackage[swedish]{babel}
+
+\usepackage{ 
+  titlesec,  tikz,  textcomp,  fixltx2e,  color,  fullpage,  graphicx,  afterpage,  float,  tipa,  parskip,
+  mathtools, xfrac, hyperref
+}
+\usepackage[yyyymmdd,hhmmss]{datetime}
+\hypersetup{
+  bookmarks=true,              % show bookmarks bar?
+  unicode=true,                % non-Latin characters in Acrobat’s bookmarks
+  pdftoolbar=true,             % show Acrobat’s toolbar?
+  pdfmenubar=true,             % show Acrobat’s menu?
+  pdffitwindow=false,          % window fit to page when opened
+  pdfstartview={FitH},         % fits the width of the page to the window
+  pdftitle={En LiTHen guide till LaTeX},         % title
+  pdfauthor={Oscar Petersson}, % author
+  pdfsubject={LaTeX},          % subject of the document
+  pdfkeywords={LaTeX}          % list of keywords
+  pdfnewwindow=true,           % links in new window
+  hidelinks,                   % hide links (removing color and border)
+  linktoc=all,                 % parts of TOC made into links
+}
+\urlstyle{same}
+
+\graphicspath{{./bilder/}}
+
+% Custom commands
+\newcommand{\bve}{\begin{verbatim}}
+\newcommand{\itb}{\begin{itemize}}
+\newcommand{\ite}{\end{itemize}}
+\newcommand{\tb}{\textbackslash}
+\newcommand{\cc}[2]{\texttt{\textbackslash{}{#1}}\dotfill{#2}\\[1mm]}
+%% First Page Information
+\author{Oscar Petersson}
+\title{En LiTHen guide till LaTeX}
+\date{\today}
+
+%%% Document %%%
+\begin{document}
+
+\titleformat{\chapter}
+{\Large\bfseries} % format
+{}                % label
+{0pt}             % sep
+{\huge}           % before-code
+
+\setcounter{secnumdepth}{3}
+\setcounter{tocdepth}{3}
+
+%% Custom titlepage, empty backside, do not use with \maketitle
+\pagestyle{empty}
+%\includegraphics[width=50 mm]{LiTH_sigill_sv.pdf}
+\begin{center}
+  \makeatletter
+  %  \vskip 4.5cm
+  ~\vfill
+  \Large{\@author}\vskip .3cm
+  \textbf{\LARGE{\@title}}\vskip .2cm
+  \vfill
+  rev.\ \today\ \currenttime
+  \makeatother
+\end{center}
+\cleardoublepage
+
+%% Table of Contents
+\tableofcontents
+\addtocontents{toc}{\protect\thispagestyle{empty}}
+\cleardoublepage
+
+%% Main Document
+\input{tex/main.tex}
+\end{document}

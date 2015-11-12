@@ -1,0 +1,162 @@
+Det här är en avkortad lista över \LaTeX{}-kommandon med en kort sammanfattning över dess funktionalitet. Hakparenteser ``\lbrack{}\rbrack{}'' är valfria parametrar, måsvingar ``\{\}'' är obligatoriska argument. Vissa kommandon har inte berörts tidigare och det lämnas åt läsaren att själv antingen pröva sig fram till dess funktionalitet eller söka sig till fördjupad information om dessa. Detta dokument avser, som tidigare nämnts, inte att vara en komplett sammanfattning av \LaTeX{}.
+
+\subsection{\#}
+\cc{@}{avslutar mening efter punkt}
+\cc{\tb\lbrack\*\rbrack\lbrack{}extra avstånd\rbrack{}}{nyrad}
+\cc{,}{kort mellanslag}
+\cc{;}{långt mellanslag, math mode}
+\cc{!}{kort negativt mellanslag, mathmode}
+\cc{-}{avstavning}
+\cc{'}{accent på nästkommande tecken}
+\cc{|}{dubbla vertikala linjer, mathmode}
+\cc{(}{starta mathmode}
+\cc{)}{avsluta mathmode}
+\cc{\lbrack}{starta displaymath}
+\cc{\rbrack}{avsluta displaymath}
+
+\subsection{A}
+\cc{addcontentsline\{file\}\{sec\_unit\}\{entry\}}{lägger till en post till specifierad lista eller tabell}
+\cc{addtocontents\{file\}\{text\}}{lägger till text eller formatteringskommandon direkt till den fil som skapar specifierad lista eller tabell}
+\cc{addtocounter\{counter\}\{value\}}{inkrementerar specifierad räknare}
+\cc{addvspace}{lägger till vertikalt utrymme av specifierad höjd}
+\cc{alph}{skriver ut värdet av en räknare med bokstäver}
+\cc{appendix}{ändrar sektionsinställningar till att räknas som appendix}
+\cc{arabic}{skriver ut värdet av en räknare med siffror}
+\cc{author\{\}}{deklarerar dokumentets författare}
+
+\subsection{B}
+\cc{backslash}{skriver ut ett \tb i mathmode}
+\cc{bf}{fetstil}
+\cc{bibitem}{skapar etikett för litteraturförteckning}
+\cc{boldmath}{fetstil i mathmode}
+
+\subsection{C}
+\cc{cal}{kalligrafisk stil i mathmode}
+\cc{caption}{skapar annotation för figurer och tabeller}
+\cc{cdots}{centrerade punkter ($\cdots$), mathmode}
+\cc{centering}{centrering av \LaTeX-miljöer}
+\cc{chapter}{påbörjar nytt kapitel}
+\cc{cite}{använder bibitem för att hänvisa till litteraturförteckningen}
+\cc{cleardoublepage}{skriver ut cachens eventuella floats etc. och avslutar aktuell sida}
+\cc{clearpage}{som cleardoublepage men för enkelsida}
+\cc{cline}{begränsad horisontell linje, se hline och kap. \ref{sec:grafik}}
+\cc{color}{färgsätter text}
+\cc{copyright}{skapar \copyright}
+
+\subsection{D}
+\cc{date}{definierar datum}
+\cc{ddots}{$\ddots$ i mathmode}
+\cc{documentclass\lbrack\rbrack\{style\}}{används för att påbörja ett \LaTeX-dokument}
+\cc{dotfill}{fyller med punkter, som i denna lista}
+
+\subsection{E}
+\cc{em}{växelkommando för kursiv stil}
+\cc{emph\{\}}{kursiverar/inverterar kursiverad stil}
+
+\subsection{F}
+\cc{footnote\{\}}{skapar fotnot}
+\cc{frac\{\}\{\}}{skapar bråktal}
+\cc{frenchspacing}{motverka längre mellanrum efter punkt}
+
+\subsection{H}
+\cc{hfill}{som dotfill utan punkter}
+\cc{hline}{horisontell linje i tabular-miljön}
+\cc{hrulefill}{som dotfill men med heldragen linje}
+\cc{hspace}{skapa horisontellt mellanrum}
+\cc{huge}{en större teckensnittsstorlek än \tb{}LARGE}
+\cc{Huge}{en ännu större teckensnittsstorlek}
+
+\subsection{I}
+\cc{include}{skiljer sig från \tb{}input i det att det inkluderar outputen i stället för kommandona från andra filer}
+\cc{includegraphics}{infogar en bild, kräver graphicx}
+\cc{indent}{infoga indentering}
+\cc{input}{läs in och inkludera en annan \LaTeX-fil}
+\cc{item}{skapar en punkt i en lista}
+
+\subsection{L}
+\cc{label}{skapar en etikett som sedan kan refereras till via \tb{}ref och \tb{}pageref}
+\cc{large}{en stor teckensnittsstorlek}
+\cc{Large}{en större teckensnittsstorlek}
+\cc{LARGE}{en ännu större teckensnittsstorlek}
+\cc{LaTeX}{skriver ut \LaTeX{}}
+\cc{ldots}{skriver ut ``\ldots{}'' med adekvat typsättning}
+\cc{left}{se sid. \pageref{sec:lrm}}
+\cc{linebreak}{föreslår radbrytning för \LaTeX}
+\cc{listoffigures}{infogar figurlista, jmf. med innehållsförteckning}
+\cc{listoftables}{infogar tabellista}
+
+\subsection{M}
+\cc{maketitle}{typsätter och infogar förstasida}
+
+\subsection{N}
+\cc{newcommand\lbrack\rbrack\{\}}{definiera nytt kommando}
+\cc{newcounter}{definiera en ny räknare}
+\cc{newenvironment}{definiera en ny miljö}
+\cc{newline}{infoga nyrad}
+\cc{newpage}{infoga sidbrytning}
+\cc{noindent}{motverka indentering av denna rad}
+\cc{nonfrenchspacing}{stänger av frenchspacing}
+\cc{normalsize}{återgår till normal teckenstorlek}
+\cc{nopagebreak}{föreslår för \LaTeX{} att inte sidbryta här}
+
+\subsection{O}
+\cc{overbrace}{infogar $\overbrace{\mathrm{overbrace}}$ i mathmode}
+
+\subsection{P}
+\cc{pagebreak}{föreslår sidbrytning}
+\cc{pagenumbering}{definierar typ av sidnumrering (arabic, roman, Roman, alph, Alph, gobble)}
+\cc{pageref}{returnerar sidnumret där motsvarande ``\tb{}label'' finns}
+\cc{pagestyle}{definierar sidlayout}
+\cc{par}{startar nytt stycke}
+\cc{paragraph}{startar nytt namnsatt stycke}
+\cc{parindent}{indenterar nya stycken}
+\cc{parskip}{nyrad för nya stycken}
+\cc{part}{ny del, se \ref{sec:sections} sid. \pageref{sec:sections}}
+
+\subsection{R}
+\cc{ref}{returnerar returvärde av ``\tb{}label''}
+\cc{renewcommand}{omdefinierar ett kommando}
+\cc{right}{se sid. \pageref{sec:lrm}}
+\cc{rm}{växel för standardteckensnitt}
+\cc{rule}{infogar linje av specifierad längd och höjd}
+
+\subsection{S}
+\cc{sc}{växel för \sc{}kapitäler\sc{}}
+\cc{section\{\}}{ny section}
+\cc{setcounter}{sätt en counter till specifierat värde}
+\cc{sf}{växel för \sf{}sans serif\sf{}}
+\cc{sl}{växel för \sl{}slanted\sl{}}
+\cc{small}{liten teckenstorlek}
+\cc{sqrt}{infogar rottecken}
+\cc{stepcounter}{inkrementerar en räknare}
+\cc{subparagraph}{ny subparagraph}
+\cc{subsection}{ny subsection}
+\cc{subsubsection}{ny subsubsection}
+
+\subsection{T}
+\cc{tableofcontents}{infogar innehållsförteckning}
+\cc{TeX}{infogar \TeX-logo}
+\cc{textbf}{fetstilt text}
+\cc{textcolor\{\}\{\}}{färgad text}
+\cc{textit}{kursiv text}
+\cc{textnormal}{normal text}
+\cc{textrm}{standardtext}
+\cc{textsc}{text i kapitäler}
+\cc{textsl}{text i \textsl{slanted}}
+\cc{texttt}{text med \texttt{fast teckenbredd}}
+\cc{thispagestyle}{definierar sidlayout för aktuell sida}
+\cc{tiny}{mindre teckenstorlek än small}
+\cc{title}{definierar titelnamn}
+\cc{today}{infogar dagens datum}
+\cc{tt}{växel för fast teckenbredd}
+
+\subsection{U}
+\cc{underbrace\{\}}{infogar $\underbrace{\mathrm{underbrace}}$ i mathmode}
+\cc{underline\{\}}{infogar $\underline{\mathrm{underline}}$ i mathmode}
+
+\subsection{V}
+\cc{vdots}{infogar $\vdots$ i mathmode}
+\cc{verb}{skapar verbatim inline}
+\cc{vfill}{infogar vertikalt mellanrum, jmf. hfill}
+\cc{vline}{infogar vertikal linje}
+

@@ -1,0 +1,52 @@
+Sidlayout i \LaTeX\ består givetvis av många delar. En del berörs i andra delar av detta dokument, bland annat \emph{\ref{sec:floats} Float, figure, caption}. Även om sidstorlek, marginalstorlek etc. kan justeras är det inte något det här dokumentet tar upp, men det kan vara värt att känna till att det går (\verb+\usepackage{fullpage}+ kan dock vara av intresse). Samma sak gäller flera kolumner och sidorientering. Det här avsnittet behandlar dock de mer statiska delarna som kan vara av intresse för att komma igång - headers, footers och sidnumrering.
+\section{Page styles}
+Page style berör just headers, footers och sidnumrering. De två huvudkommandona (\verb+\thispagestyle{stilnamn}+ (endast aktuell sida) \verb+\pagestyle{stilnamn}+ (tills vidare)) har fyra olika argument:
+
+\begin{tabular}{ll}
+  empty & Både header och footer är tomma \\
+  plain & Header är tom, footer innehåller sidnumret centrerat\\
+  heading & Footer tom, header visar sidnummer och section-namn till höger\\
+  myheadings & Header visar sidnummer till höger, resten av header kan justeras
+\end{tabular}
+
+Med myheadings aktiv kan kommandona \verb+\markright+ och \verb+\markboth+ (endast klassen \emph{book}) användas för att kontrollera headern. Ett smidigt sätt att styra layouten är med \verb+\hfill+ (se exempel). Utöver detta kan följande kommandon användas:
+
+\begin{tabular}{ll}
+  \tb{}thepage     & Aktuellt sidnummer\\
+  \tb{}leftmark    & Aktuellt kaptielnamn (KAPITEL 3. KAPITELNAMN)\\
+  \tb{}rightmark   & Aktuellt section-namn (1.6. SECTION-NAMN)\\
+  \tb{}chaptername & Aktuellt kapitelnamn (KAPITEL 3)\\
+  \tb{}thechapter  & Aktuellt kapitelnummer\\
+  \tb{}thesection  & Aktuellt section-nummer
+\end{tabular}
+
+Leftmark och rightmark skriver ut namnet med versaler. Om så inte önskas kan dessa ändras genom följande:
+
+\begin{verbatim}
+  \renewcommand{\chaptermark}[1]{ \markboth{#1}{} }
+  \renewcommand{\sectionmark}[1]{ \markright{#1}{} }
+\end{verbatim}
+
+\subsection{Sidnumrering och tomma sidor}
+Sidnumrering är ett lurigt kapitel, inte minst så snart man vill gå ifrån \LaTeX\ standard. Om vi antar att vi vill ha ett standarddokument (report) med titelsida, som vid dubbelsidig utskrift har blank baksida, och innehållsförteckning på två sidor, men där sidorna ska numreras först efter innehållsförteckningen (såsom i detta dokument) måste vi bryta standarden. Om vi inte gör det kommer vi att få titelsidan som sida 1 (ej utskrivet) och innehållsförteckningen börjar på titelsidans baksida med sidnummer utskrivet.
+
+Vi börjar med att skapa titelsidan med \verb+\maketitle+ i sedvanlig ordning. Därefter skapar vi en tom sida med \verb+\afterpage{\null\newpage}+ (kräver \verb+\usepackage{afterpage}+ och \verb+\thispagestyle{empty}+, sedan börjar det roliga. Vi skapar innehållsförteckningen, och om vi bara har en ensidig innehållsförteckning kan vi utan problem ta bort sidnumreringen med \verb+\thispagestyle{empty}+. Har vi fler sidor kommer dock endast dess sista sida att vara onumrerad. Vi väljer därför att redan från början använda \verb+\pagestyle{empty}+, med fördel redan innan titelsidan. Därefter använder vi \verb+\addtocontents{toc}{\protect\thispagestyle{empty}}+ och \verb+\cleardoublepage+ för att få bort resterande sidnumrering i innehållsförteckningen. Sedan använder vi \verb+\pagestyle+ för att sätta resten av dokumentets sidor till önskat format enligt föregående avsnitt. Slutligen har vi ett sista problem: även om sidnumreringen har tagits bort så räknas fortfarande antalet sidor vidare och vår första ``normala'' sida kommer inte att ha sidnummer 1. Vi korrigerar detta genom att ettsätta sidräknaren (\verb+\setcounter{page}{1}+). Slutligen kommer då koden att se ut som följande:
+
+\begin{verbatim}
+\begin{document}
+  \pagestyle{empty}
+
+  \maketitle
+  \afterpage{\null\newpage}
+
+  \tableofcontents
+  \addtocontents{toc}{\protect\thispagestyle{empty}}
+  \cleardoublepage
+
+  \pagestyle{plain}
+
+  ...
+
+\end{document}
+\end{verbatim}
+\pagestyle{plain} % Seems like pagestyle{empty} bugs out inside verbatim or something, this resets the layout however
